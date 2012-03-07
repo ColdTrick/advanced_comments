@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin_manifest>
-	<field key="author" value="ColdTrick IT Solutions" />
-	<field key="version" value="1.0" />
-	<field key="description" value="Advanced comment options" />
-	<field key="website" value="http://www.coldtrick.com/" />
-	<field key="copyright" value="(C) ColdTrick IT Solutions 2011" />
-	<field key="licence" value="GNU Public License version 2" />
-	<field key="elgg-version" value="2010071002" />
+<plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
+	<name>Advanced Comments</name>
+	<author>ColdTrick IT Solutions</author>
+	<version>2.0</version>
+	<description>Replace generic comments system with a more advanced options functionality.</description>
+	<website>http://www.coldtrick.com/</website>
+	<copyright>(C) ColdTrick IT Solutions 2009 - 2012</copyright>
+	<license>GNU Public License version 2</license>
+ 	
+ 	<requires>
+		<type>elgg_version</type>
+		<version>2011123101</version>
+	</requires>
+	
+ 	<category>ColdTrick</category>
 </plugin_manifest>
-<!--
-=====================
-Features
-=====================
-Replace generic comments system with a more advanced options functionality.
-- Change order (Oldest First / Newest First)
-- Add comments block always directly after content
-- Control limit
-- Use autoloading of comments (when more scrolls into view, next x comments are automatically loaded)
-- jQuery loading of more comments (no more page reloads)
-- Order, Limit and Auto-Load preferences are saved per object type (file, blog, page etc)
-- Preferences for logged out user are stored in session (not in cookies)
-
-======================
-Version history
-======================
-
-1.0:
-	- initial version
-
--->

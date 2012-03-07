@@ -8,4 +8,3 @@ $language = array (
   'advanced_comments:header:auto_load' => 'Automatisch laden',
 );
 add_translation("nl", $language);
-?>

@@ -3,7 +3,6 @@
 	$english = array(
 		'advanced_comments' => "Advanced comments",
 	
-	
 		'advanced_comments:header:order' => "Comments Order",
 		'advanced_comments:header:order:asc' => "Ascending",
 		'advanced_comments:header:order:desc' => "Descending",
@@ -14,5 +13,3 @@
 	);
 	
 	add_translation("en", $english);
-
-?>
