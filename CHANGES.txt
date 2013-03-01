@@ -1,5 +1,9 @@
 = Version history: =
 
+2.1 (2013-03-01):
+
+- added: login form (admin optional) instead of comment form if not logged in
+
 2.0 (2012-03-07):
 
 - updated for Elgg 1.8

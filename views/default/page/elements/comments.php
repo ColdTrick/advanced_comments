@@ -108,3 +108,11 @@ if ($html) {
 }
 
 echo '</div>';
+
+if(!elgg_is_logged_in() && $show_add_form){
+	if(elgg_get_plugin_setting("show_login_form", "advanced_comments") !== "no"){
+		$login_form = elgg_view_form("login");
+		echo elgg_view_module("info", elgg_echo("advanced_comments:comment:logged_out"), $login_form, array("class" => "mtl"));
+	}
+}
+
