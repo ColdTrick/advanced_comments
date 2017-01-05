@@ -6,6 +6,9 @@ define(function(require) {
 	
 	var comments_loading = false;
 	
+	/**
+	 * Helper function to see if an element is in the viewport of a user
+	 */
 	var advanced_comments_is_scrolled_into_view = function(elem){
 	    var docViewTop = $(window).scrollTop();
 	    var docViewBottom = docViewTop + $(window).height();
@@ -16,6 +19,9 @@ define(function(require) {
 	    return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom));
 	};
 
+	/**
+	 * General function to load a new set of comments
+	 */
 	var advanced_comment_load_comments = function(data) {
 		
 		if (comments_loading) {
@@ -45,6 +51,9 @@ define(function(require) {
 		});
 	};
 	
+	/**
+	 * Save new display preferences
+	 */
 	var advanced_comments_change = function() {
 		
 		var ajax = new Ajax();
@@ -54,6 +63,9 @@ define(function(require) {
 		advanced_comment_load_comments(data);
 	};
 	
+	/**
+	 * Ajaxify the comments pagination
+	 */
 	var advanced_comments_pagination = function() {
 		
 		var ajax = new Ajax();
@@ -70,6 +82,9 @@ define(function(require) {
 		return false;
 	};
 	
+	/**
+	 * Check if the autoload more button is scrolled into view
+	 */
 	var advanced_comments_check_autoload = function() {
 		
 		if (!$('#advanced-comments-more').length) {
@@ -85,9 +100,11 @@ define(function(require) {
 		$('#advanced-comments-more a').click();
 	};
 	
+	/**
+	 * Used when the autoload more button is clicked
+	 */
 	var advanced_comments_load_more = function() {
 		
-		var ajax = new Ajax();
 		var data = elgg.parse_url($(this).prop('href'), 'query', true);
 
 		advanced_comment_load_comments(data);
