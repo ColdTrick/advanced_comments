@@ -49,8 +49,16 @@ if ($order === 'asc') {
 }
 
 $pagination = true;
+$entity_limit = $limit;
 if ($auto_load === 'yes') {
 	$pagination = false;
+	
+	if (!empty($offset) && !elgg_is_xhr()) {
+		// initial load of comments
+		// limit needs to be bigger
+		$entity_limit = ($offset + $limit);
+		$offset = 0;
+	}
 }
 
 $comment_options = [
@@ -59,7 +67,7 @@ $comment_options = [
 	'container_guid' => $entity->guid,
 	'reverse_order_by' => $reverse_order_by,
 	'full_view' => true,
-	'limit' => $limit,
+	'limit' => $entity_limit,
 	'offset' => $offset,
 	'preload_owners' => true,
 	'distinct' => false,

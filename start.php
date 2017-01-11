@@ -14,4 +14,7 @@ function advanced_comments_init() {
 	elgg_extend_view('css/elgg', 'css/advanced_comments/site.css');
 	
 	elgg_register_ajax_view('advanced_comments/load');
+	
+	// register plugin hooks
+	elgg_register_plugin_hook_handler('route', 'comment', '\ColdTrick\AdvancedComments\Comments::route');
 }
