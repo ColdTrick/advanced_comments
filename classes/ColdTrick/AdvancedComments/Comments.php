@@ -48,7 +48,7 @@ class Comments {
 		$comment = get_entity($comment_guid);
 		if (!$comment) {
 			// try fallback if given
-			$fallback = get_entity($fallback_guid);
+			$fallback = get_entity($container_guid);
 			if (!$fallback) {
 				$fail();
 			}
