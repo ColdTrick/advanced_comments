@@ -4,17 +4,22 @@
  */
 
 $guid = (int) elgg_extract('guid', $vars, get_input('guid'));
-$limit = (int) elgg_extract('advanced_comments_limit', $vars, get_input('limit'));
-$offset = (int) elgg_extract('advanced_comments_offset', $vars, get_input('offset'));
-$order = elgg_extract('advanced_comments_order', $vars, get_input('order'));
-$auto_load = elgg_extract('advanced_comments_auto_load', $vars, get_input('auto_load'));
+$offset = (int) elgg_extract('offset', $vars, get_input('offset'));
 $save_settings = elgg_extract('save_settings', $vars, get_input('save_settings'));
 
 elgg_entity_gatekeeper($guid);
 $entity = get_entity($guid);
 
+$comment_settings = elgg_extract('advanced_comments', $vars);
+if (empty($comment_settings)) {
+	$comment_settings = advanced_comments_get_comment_settings($entity);
+}
+$limit = (int) get_input('limit', elgg_extract('limit', $comment_settings));
+$order = get_input('order', elgg_extract('order', $comment_settings));
+$auto_load = get_input('auto_load', elgg_extract('auto_load', $comment_settings));
+
 // save settings
-if ($save_settings === 'yes') {
+if (($save_settings === 'yes') && (elgg_get_plugin_setting('user_preference', 'advanced_comments', 'yes') === 'yes')) {
 	$setting_name = implode(':', [
 		'comment_settings',
 		$entity->getType(),
@@ -22,9 +27,9 @@ if ($save_settings === 'yes') {
 	]);
 	
 	$settings = [
-		$order,
-		$limit,
-		$auto_load,
+		'order' => $order,
+		'limit' => $limit,
+		'auto_load' => $auto_load,
 	];
 	// store in session for easy reuse
 	$session = elgg_get_session();

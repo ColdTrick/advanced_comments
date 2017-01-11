@@ -1,14 +1,23 @@
 <?php
 
-$comments_order = elgg_extract('advanced_comments_order', $vars);
-$comments_limit = elgg_extract('advanced_comments_limit', $vars);
-$auto_load = elgg_extract('advanced_comments_auto_load', $vars);
+/* @var $entity ElggEntity */
 $entity = elgg_extract('entity', $vars);
 
+$comment_settings = elgg_extract('advanced_comments', $vars);
+$comments_order = elgg_extract('order', $comment_settings);
+$comments_limit = elgg_extract('limit', $comment_settings);
+$auto_load = elgg_extract('auto_load', $comment_settings);
+
+// load js
 elgg_require_js('advanced_comments/header');
 
+$type = 'select';
+if (elgg_get_plugin_setting('user_preference', 'advanced_comments', 'yes') === 'no') {
+	$type = 'hidden';
+}
+
 echo elgg_view_field([
-	'#type' => 'select',
+	'#type' => $type,
 	'#label' => elgg_echo('advanced_comments:header:order'),
 	'name' => 'order',
 	'value' => $comments_order,
@@ -19,7 +28,7 @@ echo elgg_view_field([
 ]);
 
 echo elgg_view_field([
-	'#type' => 'select',
+	'#type' => $type,
 	'#label' => elgg_echo('advanced_comments:header:limit'),
 	'name' => 'limit',
 	'value' => $comments_limit,
@@ -27,7 +36,7 @@ echo elgg_view_field([
 ]);
 
 echo elgg_view_field([
-	'#type' => 'select',
+	'#type' => $type,
 	'#label' => elgg_echo('advanced_comments:header:auto_load'),
 	'name' => 'auto_load',
 	'value' => $auto_load,

@@ -14,12 +14,14 @@
 
 $show_add_form = (bool) elgg_extract('show_add_form', $vars, true);
 $full_view = (bool) elgg_extract('full_view', $vars, true);
-$limit = (int) elgg_extract('limit', $vars, get_input('limit', 0));
-if (!$limit) {
-	$limit = (int) elgg_trigger_plugin_hook('config', 'comments_per_page', [], 25);
-}
+
 /* @var $entity ElggEntity */
 $entity = elgg_extract('entity', $vars);
+if (!($entity instanceof ElggEntity)) {
+	return;
+}
+
+$vars['guid'] = $entity->getGUID();
 
 $attr = [
 	'id' => elgg_extract('id', $vars, 'comments'),
@@ -29,44 +31,16 @@ $attr = [
 // work around for deprecation code in elgg_view()
 unset($vars['internalid']);
 
-// set options for advanced comments
-$session = elgg_get_session();
-$all_comment_settings = (array) $session->get('advanced_comments', []);
+// get options for advanced comments
+$comment_settings = advanced_comments_get_comment_settings($entity);
 
-$setting_name = implode(':', [
-	'comment_settings',
-	$entity->getType(),
-	$entity->getSubtype(),
-]);
-
-$default_settings = [
-	'desc', // order
-	max(0, $limit), // limit
-	'no', // auto load next comments
-];
-$comment_settings = (array) elgg_extract($setting_name, $all_comment_settings);
-if (empty($comment_settings)) {
-	// get settings from DB
-	$settings = elgg_get_plugin_user_setting($setting_name, 0, 'advanced_comments');
-	if (!empty($settings)) {
-		$comment_settings = explode('|', $settings);
-		
-		$all_comment_settings[$setting_name] = $comment_settings;
-		$session->set('advanced_comments', $all_comment_settings);
-	}
+$limit = (int) elgg_extract('limit', $vars, get_input('limit', 0));
+if (!$limit) {
+	$limit = (int) elgg_trigger_plugin_hook('config', 'comments_per_page', [], elgg_extract('limit', $comment_settings));
 }
+$comment_settings['limit'] = $limit;
 
-$reverse_order_by = false;
-if (elgg_extract(0, $comment_settings, $default_settings[0]) === 'asc') {
-	$reverse_order_by = true;
-}
-
-$limit = (int) elgg_extract(1, $comment_settings, elgg_extract(1, $default_settings));
-$auto_load = elgg_extract(2, $comment_settings, $default_settings[2]);
-
-$vars['advanced_comments_order'] = $reverse_order_by ? 'asc' : 'desc';
-$vars['advanced_comments_limit'] = $limit;
-$vars['advanced_comments_auto_load'] = $auto_load;
+$vars['advanced_comments'] = $comment_settings;
 
 $content = '';
 if ($show_add_form) {
@@ -75,6 +49,7 @@ if ($show_add_form) {
 
 $comments = elgg_view('advanced_comments/load', $vars);
 if (!empty($comments)) {
+	// form to allow preference change
 	$form_vars = [
 		'action' => 'ajax/view/advanced_comments/load',
 		'id' => 'advanced-comments-form',
@@ -82,6 +57,7 @@ if (!empty($comments)) {
 	$body_vars = array_merge($vars, $attr);
 	
 	$content .= elgg_view_form('advanced_comments/header', $form_vars, $body_vars);
+	// show comments
 	$content .= elgg_format_element('div', ['id' => 'advanced-comment-list'], $comments);
 }
 
