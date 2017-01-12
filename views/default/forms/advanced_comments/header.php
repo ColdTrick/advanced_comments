@@ -2,6 +2,7 @@
 
 /* @var $entity ElggEntity */
 $entity = elgg_extract('entity', $vars);
+$subtype = elgg_extract('subtype', $vars, 'comment');
 
 $comment_settings = elgg_extract('advanced_comments', $vars);
 $comments_order = elgg_extract('order', $comment_settings);
@@ -60,4 +61,9 @@ echo elgg_view_field([
 	'#type' => 'hidden',
 	'name' => 'save_settings',
 	'value' => 'yes',
+]);
+echo elgg_view_field([
+	'#type' => 'hidden',
+	'name' => 'subtype',
+	'value' => $subtype,
 ]);

@@ -6,6 +6,7 @@
 $guid = (int) elgg_extract('guid', $vars, get_input('guid'));
 $offset = (int) elgg_extract('offset', $vars, get_input('offset'));
 $save_settings = elgg_extract('save_settings', $vars, get_input('save_settings'));
+$subtype = elgg_extract('subtype', $vars, get_input('subtype', 'comment'));
 
 elgg_entity_gatekeeper($guid);
 $entity = get_entity($guid);
@@ -63,7 +64,7 @@ if ($auto_load === 'yes') {
 
 $comment_options = [
 	'type' => 'object',
-	'subtype' => 'comment',
+	'subtype' => $subtype,
 	'container_guid' => $entity->guid,
 	'reverse_order_by' => $reverse_order_by,
 	'full_view' => true,
@@ -99,5 +100,6 @@ echo elgg_format_element('div', [
 		'auto_load' => $auto_load,
 		'order' => $order,
 		'guid' => $guid,
+		'subtype' => $subtype,
 	]),
 ]));

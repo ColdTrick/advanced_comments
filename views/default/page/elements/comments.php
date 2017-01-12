@@ -44,8 +44,14 @@ $vars['advanced_comments'] = $comment_settings;
 
 $content = '';
 if ($show_add_form) {
-	$content .= elgg_view_form('comment/save', array(), $vars);
+	
+	$form_name = elgg_extract('form_name', $vars, 'comment/save');
+	$form_vars = (array) elgg_extract('form_vars', $vars, []);
+	
+	$content .= elgg_view_form($form_name, $form_vars, $vars);
 }
+unset($vars['form_name']);
+unset($vars['form_vars']);
 
 $comments = elgg_view('advanced_comments/load', $vars);
 if (!empty($comments)) {
