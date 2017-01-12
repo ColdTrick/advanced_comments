@@ -57,7 +57,7 @@ class Comments {
 			forward($fallback->getURL());
 		}
 	
-		if (!elgg_instanceof($comment, 'object', 'comment')) {
+		if (!($comment instanceof \ElggComment)) {
 			$fail();
 		}
 	
@@ -78,7 +78,7 @@ class Comments {
 		// this won't work with threaded comments, but core doesn't support that yet
 		$count = elgg_get_entities([
 			'type' => 'object',
-			'subtype' => 'comment',
+			'subtype' => $comment->getSubtype(),
 			'container_guid' => $container->guid,
 			'reverse_order_by' => $reverse_order_by,
 			'count' => true,
