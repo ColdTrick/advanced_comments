@@ -66,7 +66,7 @@ class Comments {
 			$fail();
 		}
 		
-		$comment_settings = advanced_comments_get_comment_settings($comment);
+		$comment_settings = advanced_comments_get_comment_settings($container);
 		
 		$reverse_order_by = false;
 		$wheres = ['e.guid > ' . (int) $comment->guid];
