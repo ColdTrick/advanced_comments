@@ -1,6 +1,14 @@
 Version history
 ===============
 
+3.0 (2017-01-26):
+
+- added: plugin default settings
+- added: support for different comment subtype listing and reply form
+- changed: rewrote the plugin for Elgg 2.3
+- fixed: comment url forwarding depending on settings
+- updated copyright year
+
 2.1 (2013-03-01):
 
 - added: login form (admin optional) instead of comment form if not logged in
