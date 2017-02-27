@@ -7,7 +7,6 @@ Version history
 - added: support for different comment subtype listing and reply form
 - changed: rewrote the plugin for Elgg 2.3
 - fixed: comment url forwarding depending on settings
-- updated copyright year
 
 2.1 (2013-03-01):
 
