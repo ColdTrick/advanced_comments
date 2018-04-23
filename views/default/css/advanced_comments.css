@@ -1,0 +1,17 @@
+/** Advanced Comments CSS */
+
+.elgg-form-advanced-comments-header {
+	
+	.elgg-field-label,
+	.elgg-field-input {
+		display: inline-block;
+	}
+	
+	.elgg-field-label {
+		margin-right: 0.5rem;
+	}	
+	
+	.elgg-input-single-checkbox > label {
+		display: inline-block;
+	}	
+}

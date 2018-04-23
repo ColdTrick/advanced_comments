@@ -29,21 +29,23 @@ define(function(require) {
 		}
 		comments_loading = true;
 		
+		$more_button = $('#advanced-comments-more');
+		$more_button.hide();
+		
 		var ajax = new Ajax();
-		ajax.view('advanced_comments/load', {
+		ajax.view('advanced_comments/comments', {
 			data: data,
 			success: function(result) {
-				if (data.auto_load === 'yes' && parseInt(data.offset) !== 0) {
-					var $html = $('<div>' + result + '</div>');
+				//if (data.auto_load === 'yes' && parseInt(data.offset) !== 0) {
 					
 					// add comments to the list
-					$('#advanced-comment-list ul.elgg-list').append($html.find('ul.elgg-list').html());
+					$('.comments-list').append($(result).filter('.comments-list').html());
 					
 					// replace more button
-					$('#advanced-comments-more').replaceWith($html.find('#advanced-comments-more'));
-				} else {
-					$('#advanced-comment-list').html(result).focus();
-				}
+					$more_button.replaceWith($(result).filter('#advanced-comments-more'));
+				//} else {
+				//	$('#advanced-comment-list').html(result).focus();
+				//}
 			},
 			complete: function() {
 				comments_loading = false;

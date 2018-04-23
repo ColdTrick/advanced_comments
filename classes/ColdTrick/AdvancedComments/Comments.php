@@ -3,6 +3,41 @@
 namespace ColdTrick\AdvancedComments;
 
 class Comments {
+	/**
+	 * Gets the comments per page
+	 *
+	 * @param \Elgg\Hook $hook 'config', 'comments_per_page'
+	 *
+	 * @retrun void|false
+	 */
+	public static function getCommentsPerPage(\Elgg\Hook $hook) {
+		
+		$setting = elgg_get_plugin_setting('default_limit', 'advanced_comments', $hook->getValue());
+		
+		if (elgg_get_plugin_setting('user_preference', 'advanced_comments') == 'yes') {
+		
+		}
+		
+		if (($setting < 5) || ($setting > 100)) {
+			return;
+		}
+		
+		return $setting;
+	}
+
+	/**
+	 * Are comments ordered latest first?
+	 *
+	 * @param \Elgg\Hook $hook 'config', 'comments_latest_first'
+	 *
+	 * @retrun void|false
+	 */
+	public static function getCommentsLatestFirst(\Elgg\Hook $hook) {
+		
+		$latest_first = (bool) (elgg_get_plugin_setting('default_order', 'advanced_comments') === 'desc');
+		
+		return $latest_first;
+	}
 	
 	/**
 	 * Redo the comment forwarding

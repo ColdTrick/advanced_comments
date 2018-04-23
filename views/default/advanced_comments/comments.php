@@ -3,6 +3,7 @@
  * Load a new set of comments
  */
 
+
 $guid = (int) elgg_extract('guid', $vars, get_input('guid'));
 $offset = (int) elgg_extract('offset', $vars, get_input('offset'));
 $save_settings = elgg_extract('save_settings', $vars, get_input('save_settings'));
@@ -73,6 +74,7 @@ $comment_options = [
 	'preload_owners' => true,
 	'distinct' => false,
 	'pagination' => $pagination,
+	'list_class' => 'comments-list',
 ];
 echo elgg_list_entities($comment_options);
 
