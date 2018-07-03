@@ -11,7 +11,7 @@ if (!$entity instanceof \ElggEntity) {
 
 $total = (int) elgg_extract('count', $vars);
 $limit = (int) elgg_extract('limit', $vars);
-$count = (int) count('items', $vars, []);
+$count = (int) count(elgg_extract('items', $vars, []));
 $offset = (int) elgg_extract('offset', $vars);
 
 $remaining = $total - ($offset + $count);
