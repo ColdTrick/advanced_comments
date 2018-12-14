@@ -26,7 +26,7 @@ echo elgg_view_field([
 echo elgg_view_field([
 	'#type' => 'checkbox',
 	'#label' => elgg_echo('advanced_comments:header:auto_load'),
-	'#help' => elgg_echo('advanced_comments:settings:defaults:auto_load:help'),
+	'#help' => elgg_echo('advanced_comments:settings:auto_load:help'),
 	'name' => 'params[default_auto_load]',
 	'checked' => $plugin->default_auto_load === 'yes',
 	'switch' => true,
@@ -36,7 +36,7 @@ echo elgg_view_field([
 
 echo elgg_view_field([
 	'#type' => 'checkbox',
-	'#label' => elgg_echo('advanced_comments:settings:defaults:user_preference'),
+	'#label' => elgg_echo('advanced_comments:settings:user_preference'),
 	'name' => 'params[user_preference]',
 	'checked' => $plugin->user_preference === 'yes',
 	'switch' => true,
