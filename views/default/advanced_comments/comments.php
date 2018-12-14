@@ -71,7 +71,6 @@ $comment_options = [
 	'full_view' => true,
 	'limit' => $entity_limit,
 	'offset' => $offset,
-	'preload_owners' => true,
 	'distinct' => false,
 	'pagination' => $pagination,
 	'list_class' => 'comments-list',
