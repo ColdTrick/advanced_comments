@@ -1,6 +1,10 @@
 Version history
 ===============
 
+4.0 (2019-03-27):
+
+- changed: increased version requirement to Elgg 3
+
 3.0 (2017-01-26):
 
 - added: plugin default settings
