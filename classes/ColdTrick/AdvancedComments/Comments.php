@@ -71,7 +71,6 @@ class Comments {
 	 * @param int $fallback_guid GUID of the containing entity
 	 *
 	 * @return void
-	 * @access private
 	 */
 	protected static function commentRedirect($comment_guid, $container_guid) {
 		
