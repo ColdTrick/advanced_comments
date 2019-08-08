@@ -42,20 +42,15 @@ class Comments {
 	/**
 	 * Redo the comment forwarding
 	 *
-	 * @param string     $hook         the name of the hook
-	 * @param string     $type         the type of the hook
-	 * @param bool|array $return_value current return value
-	 * @param mixed      $params       supplied params
+	 * @param \Elgg\Hook $hook 'route', 'comment'
 	 *
-	 * @retrun void|false
+	 * @todo check this, is this needed?
+	 * @return void
 	 */
-	public static function route($hook, $type, $return_value, $params) {
+	public static function route(\Elgg\Hook $hook) {
 		
-		if (!is_array($return_value)) {
-			return;
-		}
-		
-		$segments = elgg_extract('segments', $return_value);
+		$return = $hook->getValue();
+		$segments = elgg_extract('segments', $return);
 		switch (elgg_extract(0, $segments)) {
 			case 'view':
 				
