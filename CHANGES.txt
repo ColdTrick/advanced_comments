@@ -1,6 +1,10 @@
 Version history
 ===============
 
+4.1 (2019-08-22):
+
+- changed: hook callback uses class based params
+
 4.0.1 (2019-03-27):
 
 - several small chores/fixes
