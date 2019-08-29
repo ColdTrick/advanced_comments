@@ -11,5 +11,6 @@ return [
 		'default_auto_load' => 'no',
 		'user_preference' => 'yes',
 		'show_login_form' => 'yes',
+		'allow_group_comments' => 0,
 	],
 ];

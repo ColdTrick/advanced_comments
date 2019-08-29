@@ -53,3 +53,13 @@ echo elgg_view_field([
 	'default' => 'no',
 	'value' => 'yes',
 ]);
+
+echo elgg_view_field([
+	'#type' => 'checkbox',
+	'#label' => elgg_echo('advanced_comments:settings:allow_group_comments'),
+	'#help' => elgg_echo('advanced_comments:settings:allow_group_comments:help'),
+	'name' => 'params[allow_group_comments]',
+	'checked' => (bool) $plugin->allow_group_comments,
+	'switch' => true,
+	'value' => 1,
+]);

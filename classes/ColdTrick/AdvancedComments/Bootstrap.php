@@ -26,6 +26,19 @@ class Bootstrap extends DefaultPluginBootstrap {
 	}
 	
 	/**
+	 * {@inheritDoc}
+	 * @see \Elgg\DefaultPluginBootstrap::ready()
+	 */
+	public function ready() {
+		$plugin = $this->plugin();
+		$hooks = $this->elgg()->hooks;
+		
+		if ((bool) $plugin->getSetting('allow_group_comments')) {
+			$hooks->unregisterHandler('permissions_check:comment', 'object', '_elgg_groups_comment_permissions_override');
+		}
+	}
+	
+	/**
 	 * Register plugin hook handlers
 	 *
 	 * @return void

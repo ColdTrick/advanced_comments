@@ -1,10 +1,12 @@
 <?php
 /**
- * This file was created by Translation Editor v7.0-beta
- * On 2018-12-14 13:25
+ * This file was created by Translation Editor v7.0.4
+ * On 2019-08-29 10:03
  */
 
 return array (
+  'advanced_comments:settings:allow_group_comments' => 'Niet groepsleden mogen reageren op groep content',
+  'advanced_comments:settings:allow_group_comments:help' => 'Als een gebruiker content van de groep kan zien waar ze niet lid van zijn, mogen ze alsnog reageren.',
   'advanced_comments:settings:auto_load:help' => 'laad automatisch de volgende serie reacties in als de gebruiker het einde van de pagina bereikt',
   'advanced_comments:settings:user_preference' => 'Mogen gebruikers de reactie instellingen aanpassen',
   'advanced_comments:comment:logged_out' => 'Reageren is alleen toegestaan voor aangemelde gebruikers',
