@@ -3,15 +3,15 @@
 	<name>Advanced Comments</name>
 	<id>advanced_comments</id>
 	<author>ColdTrick IT Solutions</author>
-	<version>4.1</version>
+	<version>5.0-beta</version>
 	<description>Replace generic comments system with a more advanced options functionality</description>
 	<website>http://www.coldtrick.com/</website>
-	<copyright>(C) ColdTrick IT Solutions 2009 - 2018</copyright>
+	<copyright>(C) ColdTrick IT Solutions 2009 - 2019</copyright>
 	<license>GNU Public License version 2</license>
  	
  	<requires>
 		<type>elgg_release</type>
-		<version>3.0</version>
+		<version>3.1.2</version>
 	</requires>
 	
  	<category>ColdTrick</category>
