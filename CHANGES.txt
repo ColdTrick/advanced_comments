@@ -1,6 +1,11 @@
 Version history
 ===============
 
+5.0 (2019-09-04):
+
+- added: plugin setting to allow commenting on group content
+- changed: increases minimal Elgg version to 3.1.2
+
 4.1 (2019-08-22):
 
 - changed: hook callback uses class based params
