@@ -2,15 +2,22 @@
 
 use ColdTrick\AdvancedComments\Bootstrap;
 
-require_once(dirname(__FILE__) . '/lib/functions.php');
-
 return [
 	'bootstrap' => Bootstrap::class,
 	'settings' => [
-		'default_order' => 'desc',
-		'default_auto_load' => 'no',
-		'user_preference' => 'yes',
 		'show_login_form' => 'yes',
 		'allow_group_comments' => 0,
+	],
+	'hooks' => [
+		'config' => [
+			'comments_per_page' => [
+				'ColdTrick\AdvancedComments\Comments::getCommentsPerPage' => [],
+			],
+		],
+	],
+	'view_extensions' => [
+		'page/elements/comments' => [
+			'advanced_comments/logged_out_notice' => ['priority' => 400],
+		],
 	],
 ];
