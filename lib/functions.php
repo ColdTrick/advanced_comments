@@ -20,7 +20,7 @@ function advanced_comments_get_comment_settings(ElggEntity $entity = null, $user
 		'auto_load' => elgg_get_plugin_setting('default_auto_load', 'advanced_comments', 'no'),
 	];
 	
-	if (!($entity instanceof ElggEntity)) {
+	if (!$entity instanceof ElggEntity) {
 		return $settings;
 	}
 	
