@@ -5,7 +5,8 @@ $plugin = elgg_extract('entity', $vars);
 
 echo elgg_view_field([
 	'#type' => 'number',
-	'#label' => elgg_echo('advanced_comments:header:limit'),
+	'#label' => elgg_echo('advanced_comments:settings:limit'),
+	'#help' => elgg_echo('advanced_comments:settings:limit:help'),
 	'name' => 'params[default_limit]',
 	'value' => ($plugin->default_limit) ? $plugin->default_limit : 25,
 	'min' => 5,

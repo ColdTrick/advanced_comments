@@ -10,5 +10,4 @@ return array (
   'advanced_comments:comment:logged_out' => 'Reageren is alleen toegestaan voor aangemelde gebruikers',
   'advanced_comments:settings:show_login_form' => 'Toon aanmeldformulier voor afgemelde gebruikers onder de reacties',
   'advanced_comments' => 'Geadvanceerde reacties',
-  'advanced_comments:header:limit' => 'Aantal',
 );
