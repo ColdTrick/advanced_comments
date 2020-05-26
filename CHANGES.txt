@@ -1,6 +1,12 @@
 Version history
 ===============
 
+6.0 (2020-05-26):
+
+- Added german translation (#5)
+- changed: minimal requirement now is Elgg 3.3
+- removed: autoloading and user preferences have been removed
+
 5.0 (2019-09-04):
 
 - added: plugin setting to allow commenting on group content
