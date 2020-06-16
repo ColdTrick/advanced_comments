@@ -20,4 +20,38 @@ class Comments {
 		
 		return $setting;
 	}
+	
+	/**
+	 * Remove all the children comments of the given comment
+	 *
+	 * @param \Elgg\Event $event 'delete:after', 'object'
+	 *
+	 * @return void
+	 */
+	public static function deleteChildrenComments(\Elgg\Event $event) {
+		
+		$entity = $event->getObject();
+		if (!$entity instanceof \ThreadedComment) {
+			return;
+		}
+		
+		elgg_call(ELGG_IGNORE_ACCESS & ELGG_SHOW_DISABLED_ENTITIES, function() use($entity) {
+			$children = elgg_get_entities([
+				'type' => 'object',
+				'subtype' => 'comment',
+				'limit' => false,
+				'batch' => true,
+				'batch_inc_offset' => false,
+				'metadata_name_value_pairs' => [
+					'name' => 'parent_guid',
+					'value' => $entity->guid,
+				],
+			]);
+			
+			/* @var $child \ThreadedComment */
+			foreach ($children as $child) {
+				$child->delete();
+			}
+		});
+	}
 }
