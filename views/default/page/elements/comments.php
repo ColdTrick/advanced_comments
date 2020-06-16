@@ -38,16 +38,18 @@ $options = [
 	'container_guid' => $entity->guid,
 	'full_view' => true,
 	'limit' => $limit,
+	'offset' => (int) get_input('offset'),
 	'distinct' => false,
 	'url_fragment' => $module_vars['id'],
 	'order_by' => [new OrderByClause('e.guid', $latest_first ? 'DESC' : 'ASC')],
 	'list_class' => 'comments-list',
 	'wheres' => [],
+	'pagination' => true,
 ];
 
 if (!$entity instanceof ThreadedComment) {
 	// only show top level comments
-	$options['wheres'][] = function (QueryBuilder $qb, $main_alias) use ($entity) {
+	$top_comments_where = function (QueryBuilder $qb, $main_alias) use ($entity) {
 		$thread_md = $qb->subquery('metadata', 'thread_md');
 		
 		$thread_md->select('entity_guid');
@@ -60,6 +62,7 @@ if (!$entity instanceof ThreadedComment) {
 		
 		return $qb->compare("{$main_alias}.guid", 'not in', $thread_md->getSQL());
 	};
+	$options['wheres'][] = $top_comments_where;
 	
 	$show_guid = (int) elgg_extract('show_guid', $vars);
 	if ($show_guid && $limit) {
@@ -73,12 +76,19 @@ if (!$entity instanceof ThreadedComment) {
 			'type' => 'object',
 			'subtype' => 'comment',
 			'container_guid' => $entity->guid,
-			'wheres' => [$condition],
+			'wheres' => [
+				$condition,
+				$top_comments_where,
+			],
 		]);
 		$options['offset'] = (int) floor($count / $limit) * $limit;
 	}
 	
 	$comments = elgg_get_entities($options);
+	
+	$count_options = $options;
+	unset($count_options['offset']);
+	$options['count'] = elgg_count_entities($count_options);
 	
 	// preload comment threads
 	ThreadPreloader::instance()->preloadThreads($comments);

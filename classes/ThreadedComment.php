@@ -43,6 +43,15 @@ class ThreadedComment extends \ElggComment {
 	}
 	
 	/**
+	 * Return the thread (top-level) comment
+	 *
+	 * @return ThreadedComment
+	 */
+	public function getThreadEntity() {
+		return get_entity($this->getThreadGUID());
+	}
+	
+	/**
 	 * Return the parent GUID of this comment
 	 *
 	 * @return int
