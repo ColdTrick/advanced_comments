@@ -48,7 +48,11 @@ $options = [
 	'pagination' => true,
 ];
 
+$module_title = false;
+
 if (!$entity instanceof ThreadedComment) {
+	$module_title = elgg_echo('comments');
+	
 	// only show top level comments
 	$top_comments_where = Comments::getToplevelCommentsWhere($entity);
 	$options['wheres'][] = $top_comments_where;
@@ -88,16 +92,21 @@ if (!$entity instanceof ThreadedComment) {
 	$options['limit'] = false;
 	$options['pagination'] = false;
 	$options['count'] = count($comments);
+	
+	$module_vars['header'] = false;
 }
 
 $comments_list = elgg_view_entity_list($comments, $options);
 
 $content = $comments_list;
 if ($show_add_form && $entity->canComment()) {
-	$form_vars = [];
-	if ($latest_first && $comments_list && elgg_get_config('comment_box_collapses')) {
+	$form_vars = ['id' => "elgg-form-comment-save-{$entity->guid}"];
+	if ($entity instanceof ThreadedComment) {
 		$form_vars['class'] = 'hidden';
-		$form_vars['id'] = "elgg-form-comment-save-{$entity->guid}";
+	}
+	
+	if (!$entity instanceof ThreadedComment && $latest_first && $comments_list && elgg_get_config('comment_box_collapses')) {
+		$form_vars['class'] = 'hidden';
 		
 		$module_vars['menu'] = elgg_view_menu('comments', [
 			'items' => [
@@ -114,7 +123,7 @@ if ($show_add_form && $entity->canComment()) {
 	}
 	
 	$form = elgg_view_form('comment/save', $form_vars, $vars);
-	if ($latest_first) {
+	if ($latest_first || $entity instanceof ThreadedComment) {
 		$content = $form . $content;
 	} else {
 		$content .= $form;
@@ -125,4 +134,4 @@ if (empty($content)) {
 	return;
 }
 
-echo elgg_view_module('comments', elgg_echo('comments'), $content, $module_vars);
+echo elgg_view_module('comments', $module_title, $content, $module_vars);

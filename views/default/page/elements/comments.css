@@ -1,0 +1,48 @@
+.elgg-comments {
+	.elgg-list {
+		border: none;
+		
+		.elgg-form-comment-save {
+			margin-top: 0 !important;
+			margin-bottom: 1rem !important;
+		}
+	
+		> li.elgg-item-object-comment {
+			padding: 0;
+			border: none;
+			
+			> .elgg-content {
+				margin: 0;
+			}
+		}
+		
+		.comments-list, .elgg-form-comment-save {
+			margin-top: 0.5rem;
+			margin-left: 4rem;
+		}
+		
+		> li:last-child {
+			> .elgg-listing-full > .elgg-listing-full-header {
+				border-width: 1px;
+			}
+		}
+	}
+	
+	.elgg-listing-full-header {
+		padding: 1rem;
+		border-style: solid;
+		border-color: $(border-color-mild);
+		border-width: 1px 1px 0px 1px;
+		margin-bottom: 0;
+	}
+	
+	.elgg-listing-full.with-children {
+		> .elgg-listing-full-header {
+			border-width: 1px;
+		}
+	}
+	
+	.elgg-listing-full-responses {
+		border-left: 2px dashed $(border-color-soft);
+	}
+}

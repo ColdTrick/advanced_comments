@@ -51,6 +51,9 @@ return [
 		],
 	],
 	'view_extensions' => [
+		'elgg.css' => [
+			'page/elements/comments.css' => [],
+		],
 		'page/elements/comments' => [
 			'advanced_comments/logged_out_notice' => ['priority' => 400],
 		],

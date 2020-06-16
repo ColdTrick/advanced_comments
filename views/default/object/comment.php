@@ -7,6 +7,8 @@
  * @uses $vars['show_excerpt'] Should the body text be an excerpt
  */
 
+use ColdTrick\AdvancedComments\DI\ThreadPreloader;
+
 $full_view = elgg_extract('full_view', $vars, true);
 
 $comment = elgg_extract('entity', $vars);
@@ -33,6 +35,15 @@ if ($full_view) {
 		$body = elgg_view('output/longtext', [
 			'value' => $comment->description,
 		]);
+	
+		if (elgg_extract('show_add_form', $vars, true) && $comment->canComment()) {
+			$body .= elgg_view('output/url', [
+				'text' => elgg_echo('generic_comments:add'),
+				'href' => "#elgg-form-comment-save-{$comment->guid}",
+				'rel' => 'toggle',
+				'class' => 'elgg-subtext',
+			]);
+		}
 	}
 
 	$params = [
@@ -43,6 +54,11 @@ if ($full_view) {
 		'show_summary' => true,
 		'content' => $body,
 	];
+	
+	if (!empty(ThreadPreloader::instance()->getChildren($comment->guid))) {
+		$params['class'] = elgg_extract_class($vars, ['with-children']);
+	}
+	
 	$params = $params + $vars;
 	echo elgg_view('object/elements/full', $params);
 } else {
