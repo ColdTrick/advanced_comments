@@ -108,17 +108,17 @@ if ($show_add_form && $entity->canComment()) {
 	$form_vars = [];
 	if ($latest_first && $comments_list && elgg_get_config('comment_box_collapses')) {
 		$form_vars['class'] = 'hidden';
+		$form_vars['id'] = "elgg-form-comment-save-{$entity->guid}";
 		
 		$module_vars['menu'] = elgg_view_menu('comments', [
 			'items' => [
 				[
 					'name' => 'add',
 					'text' => elgg_echo('generic_comments:add'),
-					'href' => false,
+					'href' => '#' . $form_vars['id'],
 					'icon' => 'plus',
 					'class' => ['elgg-button', 'elgg-button-action'],
 					'rel' => 'toggle',
-					'data-toggle-selector' => '.elgg-form-comment-save',
 				],
 			],
 		]);
