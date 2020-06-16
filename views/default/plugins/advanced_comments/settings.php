@@ -41,7 +41,6 @@ echo elgg_view_field([
 	'value' => $plugin->threaded_comments,
 	'options_values' => [
 		0 => elgg_echo('advanced_comments:settings:threaded_comments:none'),
-		1 => 1,
 		2 => 2,
 		3 => 3,
 		4 => 4,
