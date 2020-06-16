@@ -22,6 +22,13 @@ return [
 	'actions' => [
 		'comment/save' => [],
 	],
+	'events' => [
+		'delete:after' => [
+			'object' => [
+				'ColdTrick\AdvancedComments\Comments::deleteChildrenComments' => [],
+			],
+		],
+	],
 	'hooks' => [
 		'config' => [
 			'comments_per_page' => [
