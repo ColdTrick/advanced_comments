@@ -13,7 +13,7 @@ class ThreadPreloader {
 	/**
 	 * @var \ThreadedComment[]
 	 */
-	protected $children = [];
+	protected $children;
 	
 	/**
 	 * {@inheritdoc}
@@ -76,6 +76,13 @@ class ThreadPreloader {
 	 * @return \ThreadedComment[]
 	 */
 	public function getChildren(int $comment_guid) {
+		if (!isset($this->children)) {
+			$comment = get_entity($comment_guid);
+			if ($comment instanceof \ThreadedComment) {
+				$this->preloadThreads([$comment->getThreadEntity()]);
+			}
+		}
+		
 		return elgg_extract($comment_guid, $this->children, []);
 	}
 }
