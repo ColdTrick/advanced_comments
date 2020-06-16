@@ -12,6 +12,7 @@
 use Elgg\Database\QueryBuilder;
 use Elgg\Database\Clauses\OrderByClause;
 use ColdTrick\AdvancedComments\DI\ThreadPreloader;
+use ColdTrick\AdvancedComments\Comments;
 
 $entity = elgg_extract('entity', $vars);
 if (!$entity instanceof \ElggEntity) {
@@ -49,19 +50,7 @@ $options = [
 
 if (!$entity instanceof ThreadedComment) {
 	// only show top level comments
-	$top_comments_where = function (QueryBuilder $qb, $main_alias) use ($entity) {
-		$thread_md = $qb->subquery('metadata', 'thread_md');
-		
-		$thread_md->select('entity_guid');
-		$thread_entity = $thread_md->joinEntitiesTable('thread_md', 'entity_guid');
-		
-		$thread_md->where($qb->compare("{$thread_entity}.type", '=', 'object', ELGG_VALUE_STRING))
-			->andWhere($qb->compare("{$thread_entity}.subtype", '=', 'comment', ELGG_VALUE_STRING))
-			->andWhere($qb->compare("{$thread_entity}.container_guid", '=', $entity->guid, ELGG_VALUE_GUID))
-			->andWhere($qb->compare('thread_md.name', '=', 'thread_guid', ELGG_VALUE_STRING));
-		
-		return $qb->compare("{$main_alias}.guid", 'not in', $thread_md->getSQL());
-	};
+	$top_comments_where = Comments::getToplevelCommentsWhere($entity);
 	$options['wheres'][] = $top_comments_where;
 	
 	$show_guid = (int) elgg_extract('show_guid', $vars);

@@ -4,6 +4,7 @@ namespace ColdTrick\AdvancedComments\Controllers;
 
 use Elgg\Http\ResponseBuilder;
 use Elgg\Database\QueryBuilder;
+use ColdTrick\AdvancedComments\Comments;
 
 /**
  * Controller to redirect comment URL's to the entity URL with pagination
@@ -65,19 +66,7 @@ class CommentRedirector {
 				function(QueryBuilder $qb, $main_alias) use ($top_comment, $operator) {
 					return $qb->compare("{$main_alias}.guid", $operator, $top_comment->guid, ELGG_VALUE_GUID);
 				},
-				function (QueryBuilder $qb, $main_alias) use ($container) {
-					$thread_md = $qb->subquery('metadata', 'thread_md');
-					
-					$thread_md->select('entity_guid');
-					$thread_entity = $thread_md->joinEntitiesTable('thread_md', 'entity_guid');
-					
-					$thread_md->where($qb->compare("{$thread_entity}.type", '=', 'object', ELGG_VALUE_STRING))
-						->andWhere($qb->compare("{$thread_entity}.subtype", '=', 'comment', ELGG_VALUE_STRING))
-						->andWhere($qb->compare("{$thread_entity}.container_guid", '=', $container->guid, ELGG_VALUE_GUID))
-						->andWhere($qb->compare('thread_md.name', '=', 'thread_guid', ELGG_VALUE_STRING));
-					
-					return $qb->compare("{$main_alias}.guid", 'not in', $thread_md->getSQL());
-				},
+				Comments::getToplevelCommentsWhere($container),
 			],
 		]);
 		$limit = (int) get_input('limit');
