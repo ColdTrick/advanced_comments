@@ -7,6 +7,7 @@
  */
 
 use Elgg\Database\Clauses\OrderByClause;
+use ColdTrick\AdvancedComments\Comments;
 
 // allow river views to override the response content
 $responses = elgg_extract('responses', $vars);
@@ -37,6 +38,9 @@ if ($comment_count) {
 		'limit' => 3,
 		'order_by' => [new OrderByClause('time_created', 'DESC')],
 		'distinct' => false,
+		'wheres' => [
+			Comments::getToplevelCommentsWhere($object),
+		],
 	]);
 
 	// why is this reversing it? because we're asking for the 3 latest
