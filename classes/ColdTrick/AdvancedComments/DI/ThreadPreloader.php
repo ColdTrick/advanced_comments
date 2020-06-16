@@ -3,6 +3,8 @@
 namespace ColdTrick\AdvancedComments\DI;
 
 use Elgg\Di\ServiceFacade;
+use Elgg\Database\QueryBuilder;
+use Elgg\Database\Clauses\OrderByClause;
 
 class ThreadPreloader {
 
@@ -52,6 +54,9 @@ class ThreadPreloader {
 				'name' => 'thread_guid',
 				'value' => $guids,
 			],
+			'order_by' => function (QueryBuilder $qb, $main_alias) {
+				return new OrderByClause("{$main_alias}.time_created", 'ASC');
+			},
 		]);
 		
 		/* @var $comment \ThreadedComment */
