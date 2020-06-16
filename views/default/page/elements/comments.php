@@ -11,6 +11,7 @@
 
 use Elgg\Database\QueryBuilder;
 use Elgg\Database\Clauses\OrderByClause;
+use ColdTrick\AdvancedComments\DI\ThreadPreloader;
 
 $entity = elgg_extract('entity', $vars);
 if (!$entity instanceof \ElggEntity) {
@@ -41,26 +42,56 @@ $options = [
 	'url_fragment' => $module_vars['id'],
 	'order_by' => [new OrderByClause('e.guid', $latest_first ? 'DESC' : 'ASC')],
 	'list_class' => 'comments-list',
+	'wheres' => [],
 ];
 
-$show_guid = (int) elgg_extract('show_guid', $vars);
-if ($show_guid && $limit) {
-	// show the offset that includes the comment
-	// this won't work with threaded comments, but core doesn't support that yet
-	$operator = $latest_first ? '>' : '<';
-	$condition = function(QueryBuilder $qb) use ($show_guid, $operator) {
-		return $qb->compare('e.guid', $operator, $show_guid, ELGG_VALUE_INTEGER);
+if (!$entity instanceof ThreadedComment) {
+	// only show top level comments
+	$options['wheres'][] = function (QueryBuilder $qb, $main_alias) use ($entity) {
+		$thread_md = $qb->subquery('metadata', 'thread_md');
+		
+		$thread_md->select('entity_guid');
+		$thread_entity = $thread_md->joinEntitiesTable('thread_md', 'entity_guid');
+		
+		$thread_md->where($qb->compare("{$thread_entity}.type", '=', 'object', ELGG_VALUE_STRING))
+			->andWhere($qb->compare("{$thread_entity}.subtype", '=', 'comment', ELGG_VALUE_STRING))
+			->andWhere($qb->compare("{$thread_entity}.container_guid", '=', $entity->guid, ELGG_VALUE_GUID))
+			->andWhere($qb->compare('thread_md.name', '=', 'thread_guid', ELGG_VALUE_STRING));
+		
+		return $qb->compare("{$main_alias}.guid", 'not in', $thread_md->getSQL());
 	};
-	$count = elgg_count_entities([
-		'type' => 'object',
-		'subtype' => 'comment',
-		'container_guid' => $entity->guid,
-		'wheres' => [$condition],
-	]);
-	$options['offset'] = (int) floor($count / $limit) * $limit;
+	
+	$show_guid = (int) elgg_extract('show_guid', $vars);
+	if ($show_guid && $limit) {
+		// show the offset that includes the comment
+		// this won't work with threaded comments, but core doesn't support that yet
+		$operator = $latest_first ? '>' : '<';
+		$condition = function(QueryBuilder $qb) use ($show_guid, $operator) {
+			return $qb->compare('e.guid', $operator, $show_guid, ELGG_VALUE_INTEGER);
+		};
+		$count = elgg_count_entities([
+			'type' => 'object',
+			'subtype' => 'comment',
+			'container_guid' => $entity->guid,
+			'wheres' => [$condition],
+		]);
+		$options['offset'] = (int) floor($count / $limit) * $limit;
+	}
+	
+	$comments = elgg_get_entities($options);
+	
+	// preload comment threads
+	ThreadPreloader::instance()->preloadThreads($comments);
+} else {
+	$comments = ThreadPreloader::instance()->getChildren($entity->guid);
+	
+	// load children of thread
+	$options['limit'] = false;
+	$options['pagination'] = false;
+	$options['count'] = count($comments);
 }
 
-$comments_list = elgg_list_entities($options);
+$comments_list = elgg_view_entity_list($comments, $options);
 
 $content = $comments_list;
 if ($show_add_form && $entity->canComment()) {
@@ -82,7 +113,7 @@ if ($show_add_form && $entity->canComment()) {
 			],
 		]);
 	}
-
+	
 	$form = elgg_view_form('comment/save', $form_vars, $vars);
 	if ($latest_first) {
 		$content = $form . $content;

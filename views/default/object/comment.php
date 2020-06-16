@@ -40,10 +40,11 @@ if ($full_view) {
 		'time_href' => $comment->getURL(),
 		'access' => false,
 		'title' => false,
+		'show_summary' => true,
 		'content' => $body,
 	];
 	$params = $params + $vars;
-	echo elgg_view('object/elements/summary', $params);
+	echo elgg_view('object/elements/full', $params);
 } else {
 	// brief view
 	$commenter_icon = elgg_view_entity_icon($commenter, 'small');

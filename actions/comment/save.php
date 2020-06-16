@@ -32,29 +32,49 @@ if ($comment_guid) {
 	// Create a new comment on the target entity
 	$entity = get_entity($entity_guid);
 	if (!$entity) {
-		return elgg_error_response(elgg_echo('generic_comment:notfound'));
+		return elgg_error_response(elgg_echo('actionunauthorized'));
+	}
+	
+	$thread_guid = null;
+	$parent_guid = null;
+	$level = null;
+	
+	if ($entity instanceof ThreadedComment) {
+		$level = $entity->getLevel() + 1;
+		$parent_guid = $entity->guid;
+		$thread_guid = $entity->getThreadGUID();
+		
+		$entity = $entity->getContainerEntity();
 	}
 
 	$user = elgg_get_logged_in_user_entity();
 
-	$comment = new ElggComment();
+	$comment = new ThreadedComment();
 	$comment->description = $comment_text;
 	$comment->owner_guid = $user->getGUID();
 	$comment->container_guid = $entity->getGUID();
 	$comment->access_id = $entity->access_id;
+	
+	// threaded comment additions
+	$comment->thread_guid = $thread_guid;
+	$comment->parent_guid = $parent_guid;
+	$comment->level = $level;
+	
 	$guid = $comment->save();
-
 	if (!$guid) {
 		return elgg_error_response(elgg_echo('generic_comment:failure'));
 	}
 
-	// Add to river
-	elgg_create_river_item([
-		'view' => 'river/object/comment/create',
-		'action_type' => 'comment',
-		'object_guid' => $guid,
-		'target_guid' => $entity_guid,
-	]);
+	// no river for threaded comments
+	if (empty($thread_guid)) {
+		// Add to river
+		elgg_create_river_item([
+			'view' => 'river/object/comment/create',
+			'action_type' => 'comment',
+			'object_guid' => $guid,
+			'target_guid' => $entity->guid,
+		]);
+	}
 
 	$success_message = elgg_echo('generic_comment:posted');
 }

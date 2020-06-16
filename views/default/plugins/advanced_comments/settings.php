@@ -8,7 +8,7 @@ echo elgg_view_field([
 	'#label' => elgg_echo('advanced_comments:settings:limit'),
 	'#help' => elgg_echo('advanced_comments:settings:limit:help'),
 	'name' => 'params[default_limit]',
-	'value' => ($plugin->default_limit) ? $plugin->default_limit : 25,
+	'value' => $plugin->default_limit,
 	'min' => 5,
 	'max' => 100,
 ]);
@@ -31,4 +31,19 @@ echo elgg_view_field([
 	'checked' => (bool) $plugin->allow_group_comments,
 	'switch' => true,
 	'value' => 1,
+]);
+
+echo elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('advanced_comments:settings:threaded_comments'),
+	'#help' => elgg_echo('advanced_comments:settings:threaded_comments:help'),
+	'name' => 'params[threaded_comments]',
+	'value' => $plugin->threaded_comments,
+	'options_values' => [
+		0 => elgg_echo('advanced_comments:settings:threaded_comments:none'),
+		1 => 1,
+		2 => 2,
+		3 => 3,
+		4 => 4,
+	],
 ]);
