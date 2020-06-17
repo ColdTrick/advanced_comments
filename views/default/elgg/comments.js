@@ -122,7 +122,7 @@ define(['jquery', 'elgg'], function ($, elgg) {
 		 * @returns {jQuery} note: may be empty
 		 */
 		getForm: function () {
-			return this.$item.find('.elgg-form-comment-save');
+			return this.$item.find('#edit-comment-' + this.guid);
 		},
 
 		hideForm: function () {
