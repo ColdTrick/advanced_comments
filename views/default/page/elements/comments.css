@@ -10,6 +10,7 @@
 		> li.elgg-item-object-comment {
 			padding: 0;
 			border: none;
+			margin-top: -1px;
 			
 			> .elgg-content {
 				margin: 0;
@@ -20,19 +21,13 @@
 			margin-top: 0.5rem;
 			margin-left: 4rem;
 		}
-		
-		> li:last-child {
-			> .elgg-listing-full > .elgg-listing-full-header {
-				border-width: 1px;
-			}
-		}
 	}
 	
 	.elgg-listing-full-header {
 		padding: 1rem;
 		border-style: solid;
 		border-color: $(border-color-mild);
-		border-width: 1px 1px 0px 1px;
+		border-width: 1px;
 		margin-bottom: 0;
 	}
 	
@@ -46,3 +41,8 @@
 		border-left: 2px dashed $(border-color-soft);
 	}
 }
+
+.elgg-river-comments > li.elgg-item-object-comment > .elgg-listing-full > .elgg-listing-full-header {
+	margin-bottom: 0;
+}
+		
