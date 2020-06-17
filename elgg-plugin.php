@@ -51,7 +51,7 @@ return [
 		],
 	],
 	'view_extensions' => [
-		'elgg.css' => [
+		'elements/components/comments.css' => [
 			'page/elements/comments.css' => [],
 		],
 		'page/elements/comments' => [
