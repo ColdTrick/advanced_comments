@@ -18,8 +18,9 @@
 		}
 		
 		.comments-list, .elgg-form-comment-save {
-			margin-top: 0.5rem;
+			margin-top: 1.5rem;
 			margin-left: 4rem;
+			margin-bottom: 1rem;
 		}
 	}
 	
@@ -45,4 +46,15 @@
 .elgg-river-comments > li.elgg-item-object-comment > .elgg-listing-full > .elgg-listing-full-header {
 	margin-bottom: 0;
 }
-		
+
+.elgg-module-comments {
+	margin: 0;
+}
+
+li.elgg-item-object-comment.elgg-state-highlight {
+	animation: unset !important;
+	
+	> .elgg-listing-full > .elgg-listing-full-header {
+		animation: comment-highlight 5s;
+	}
+}
