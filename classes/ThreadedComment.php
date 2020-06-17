@@ -12,7 +12,7 @@ class ThreadedComment extends \ElggComment {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function canComment($user_guid = 0, $default = true) {
+	public function canComment($user_guid = 0, $default = false) {
 		if ($this->getLevel() >= (int) elgg_get_plugin_setting('threaded_comments', 'advanced_comments')) {
 			return false;
 		}
