@@ -12,12 +12,17 @@ class ThreadedComment extends \ElggComment {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function canComment($user_guid = 0, $default = false) {
+	public function canComment($user_guid = 0, $default = null) {
 		if ($this->getLevel() >= (int) elgg_get_plugin_setting('threaded_comments', 'advanced_comments')) {
 			return false;
 		}
 		
-		return \ElggObject::canComment($user_guid, $default);
+		$container = $this->getContainerEntity();
+		if (!$container instanceof ElggEntity) {
+			return false;
+		}
+		
+		return $container->canComment($user_guid, $default);
 	}
 	
 	/**
