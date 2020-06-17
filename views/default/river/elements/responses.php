@@ -52,6 +52,7 @@ if ($comment_count) {
 		'list_class' => 'elgg-river-comments',
 		'show_excerpt' => true,
 		'register_rss_link' => false,
+		'show_responses' => false,
 	]);
 	
 	if ($comment_count > count($comments)) {
