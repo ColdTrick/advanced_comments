@@ -11,5 +11,5 @@ return [
 	'advanced_comments:settings:threaded_comments:none' => "No threaded comments allowed",
 	
 	'advanced_comments:comment:logged_out' => "Commenting only available for logged in users",
-	
+	'advanced_comments:threaded_comment:add' => "Leave a comment",
 ];

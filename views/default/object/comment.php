@@ -38,7 +38,7 @@ if ($full_view) {
 	
 		if (elgg_extract('show_add_form', $vars, true) && $comment->canComment()) {
 			$body .= elgg_view('output/url', [
-				'text' => elgg_echo('generic_comments:add'),
+				'text' => elgg_echo('advanced_comments:threaded_comment:add'),
 				'href' => "#elgg-form-comment-save-{$comment->guid}",
 				'rel' => 'toggle',
 				'class' => 'elgg-subtext',
