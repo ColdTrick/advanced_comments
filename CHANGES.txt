@@ -1,6 +1,10 @@
 Version history
 ===============
 
+6.1 (2020-06-23):
+
+- added: threaded comments
+
 6.0 (2020-05-26):
 
 - Added german translation (#5)
