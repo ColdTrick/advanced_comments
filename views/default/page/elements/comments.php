@@ -23,8 +23,8 @@ $show_add_form = elgg_extract('show_add_form', $vars, true);
 
 $latest_first = elgg_comments_are_latest_first($entity);
 
-$limit = elgg_extract('limit', $vars, get_input('limit', 0));
-if (!$limit) {
+$limit = elgg_extract('limit', $vars, get_input('limit'));
+if (!isset($limit)) {
 	$limit = elgg_comments_per_page($entity);
 }
 
@@ -90,6 +90,7 @@ if (!$entity instanceof ThreadedComment) {
 	
 	// load children of thread
 	$options['limit'] = false;
+	$options['offset'] = 0;
 	$options['pagination'] = false;
 	$options['count'] = count($comments);
 	
