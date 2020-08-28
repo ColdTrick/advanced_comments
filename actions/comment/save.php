@@ -35,6 +35,10 @@ if ($comment_guid) {
 		return elgg_error_response(elgg_echo('actionunauthorized'));
 	}
 	
+	if (!$entity->canComment()) {
+		return elgg_error_response(elgg_echo('actionunauthorized'));
+	}
+	
 	$thread_guid = null;
 	$parent_guid = null;
 	$level = null;
