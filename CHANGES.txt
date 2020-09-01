@@ -1,6 +1,11 @@
 Version history
 ===============
 
+6.1.1 (2020-09-01):
+
+- fix: use correct logic to apply default comments list length
+- fixed: validate canComment in comments save action
+
 6.1 (2020-06-23):
 
 - added: threaded comments
