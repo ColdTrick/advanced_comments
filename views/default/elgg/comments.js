@@ -14,6 +14,20 @@ define(['jquery', 'elgg'], function ($, elgg) {
 		}
 	});
 
+	// sets the focus in the editor when it is toggled
+	$(document).on('elgg_ui_toggle', function (e, data) {
+		var $elements = data.$toggled_elements;
+		if (!$elements.is('.elgg-form-comment-save')) {
+			return;
+		}
+		
+		try {
+			$elements.find('textarea[name="generic_comment"]').ckeditorGet().focus();
+		} catch (e) {
+			// do nothing
+		}
+	});
+
 	$(document).on('submit', '.elgg-form-comment-save', function (event) {
 		var $form = $(this);
 
