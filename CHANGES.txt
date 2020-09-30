@@ -1,6 +1,10 @@
 Version history
 ===============
 
+6.2 (2020-09-30):
+
+- added: when a comment form is toggled it also receives the focus
+
 6.1.1 (2020-09-01):
 
 - fix: use correct logic to apply default comments list length
