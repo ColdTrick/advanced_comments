@@ -8,18 +8,14 @@
  */
 
 $items = (array) elgg_extract('items', $vars, []);
-$entities = array_filter($items, function ($e) {
-	return $e instanceof \ElggEntity;
-});
-
-if (count($entities) < 3) {
+if (count($items) < 3) {
 	return;
 }
 
 $preload = elgg_extract('preload_comments_count', $vars);
 if (!isset($preload)) {
 	$list_class = elgg_extract('list_class', $vars);
-	$preload = in_array($list_class, ['elgg-list-entity', 'comments-list']);
+	$preload = in_array($list_class, ['elgg-list-river', 'elgg-list-entity', 'comments-list']);
 }
 
 if (!$preload) {
@@ -27,4 +23,4 @@ if (!$preload) {
 }
 
 $preloader = new \ColdTrick\AdvancedComments\Preloader(\ColdTrick\AdvancedComments\DataService::instance());
-$preloader->preloadForList($entities);
+$preloader->preloadForList($items);

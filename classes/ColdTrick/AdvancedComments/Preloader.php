@@ -24,12 +24,12 @@ class Preloader {
 	/**
 	 * Preload comments count for a set of items
 	 *
-	 * @param \ElggEntity[] $entities the entities to preload for
+	 * @param \ElggEntity[]|\ElggRiverItem[] $items the items to preload for
 	 *
 	 * @return void
 	 */
-	public function preloadForList(array $entities) {
-		$guids = $this->getGuidsToPreload($entities);
+	public function preloadForList(array $items) {
+		$guids = $this->getGuidsToPreload($items);
 	
 		$this->preloadCountsFromQuery($guids);
 	}
@@ -63,15 +63,19 @@ class Preloader {
 	/**
 	 * Convert entities to guids
 	 *
-	 * @param \ElggEntity[] $entities the entities to process
+	 * @param \ElggEntity[]|\ElggRiverItem[] $items the entities to process
 	 *
 	 * @return int[]
 	 */
-	protected function getGuidsToPreload(array $entities) {
+	protected function getGuidsToPreload(array $items) {
 		$guids = [];
 
-		foreach ($entities as $entity) {
-			$guids[$entity->guid] = true;
+		foreach ($items as $item) {
+			if ($item instanceof \ElggEntity) {
+				$guids[$item->guid] = true;
+			} elseif ($item instanceof \ElggRiverItem) {
+				$guids[$item->object_guid] = true;
+			}
 		}
 		
 		return array_keys($guids);
