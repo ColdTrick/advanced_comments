@@ -79,4 +79,23 @@ class Comments {
 			return $qb->compare("{$main_alias}.guid", 'not in', $thread_md->getSQL());
 		};
 	}
+	
+	/**
+	 * Returns the comment count from cache if available
+	 *
+	 * @param \Elgg\Hook $hook 'comments:count', 'all'
+	 *
+	 * @return void|int
+	 */
+	public static function getCommentsCount(\Elgg\Hook $hook) {
+		
+		$entity = $hook->getEntityParam();
+		if (!$entity instanceof \ElggEntity || $entity instanceof \ThreadedComment) {
+			// return int to prevent a default count
+			return 0;
+		}
+		
+		return \ColdTrick\AdvancedComments\DataService::instance()->getCommentsCount($entity);
+		
+	}
 }

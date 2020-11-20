@@ -30,17 +30,14 @@ return [
 		],
 	],
 	'hooks' => [
+		'comments:count' => [
+			'all' => [
+				'ColdTrick\AdvancedComments\Comments::getCommentsCount' => [],
+			],
+		],
 		'config' => [
 			'comments_per_page' => [
 				'ColdTrick\AdvancedComments\Comments::getCommentsPerPage' => [],
-			],
-		],
-		'register' => [
-			'menu:social' => [
-				'_elgg_comments_social_menu_setup' => [
-					'unregister' => true,
-				],
-				'ColdTrick\AdvancedComments\Menus\Social::registerCommentItems' => [],
 			],
 		],
 	],
@@ -53,6 +50,9 @@ return [
 	'view_extensions' => [
 		'elements/components/comments.css' => [
 			'page/elements/comments.css' => [],
+		],
+		'page/components/list' => [
+			'advanced_comments/before_lists' => ['priority' => 1],
 		],
 		'page/elements/comments' => [
 			'advanced_comments/logged_out_notice' => ['priority' => 400],
