@@ -78,6 +78,6 @@ class Preloader {
 			}
 		}
 		
-		return array_keys($guids);
+		return $this->data->filterGuids(array_keys($guids));
 	}
 }

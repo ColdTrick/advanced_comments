@@ -43,6 +43,25 @@ class DataService {
 	}
 
 	/**
+	 * Removes already counted comments from list of guids
+	 *
+	 * @param array $guids array of guids
+	 *
+	 * @return []
+	 */
+	public function filterGuids(array $guids) {
+		foreach ($guids as $key => $guid) {
+			if (!isset($this->counts[$guid])) {
+				continue;
+			}
+			
+			unset($guids[$key]);
+		}
+		
+		return array_values($guids);
+	}
+
+	/**
 	 * Get a DataService instance
 	 *
 	 * @return \ColdTrick\AdvancedComments\DataService
