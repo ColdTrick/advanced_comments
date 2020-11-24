@@ -1,6 +1,11 @@
 Version history
 ===============
 
+6.3 (2020-11-24):
+
+- added: comment count preloader for lists
+- changed: also preload object_guids for listing of river items
+
 6.2 (2020-09-30):
 
 - added: when a comment form is toggled it also receives the focus
