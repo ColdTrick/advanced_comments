@@ -40,6 +40,14 @@ return [
 				'ColdTrick\AdvancedComments\Comments::getCommentsPerPage' => [],
 			],
 		],
+		'register' => [
+			'menu:social' => [
+				'_elgg_comments_social_menu_setup' => [
+					'unregister' => true,
+				],
+				'ColdTrick\AdvancedComments\Menus\Social::registerCommentItems' => [],
+			],
+		],
 	],
 	'routes' => [
 		'view:object:comment' => [
