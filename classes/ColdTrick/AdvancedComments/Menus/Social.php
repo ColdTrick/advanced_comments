@@ -15,7 +15,7 @@ class Social {
 	 * @param \Elgg\Hook $hook 'register', 'menu:social'
 	 *
 	 * @return MenuItems
-	 * @see _elgg_comments_social_menu_setup()
+	 * @see Elgg\Menus\Social::registerComments()
 	 */
 	public static function registerCommentItems(\Elgg\Hook $hook) {
 		$entity = $hook->getEntityParam();
@@ -23,6 +23,6 @@ class Social {
 			return;
 		}
 		
-		return _elgg_comments_social_menu_setup($hook);
+		return \Elgg\Menus\Social::registerComments($hook);
 	}
 }

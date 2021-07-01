@@ -96,6 +96,5 @@ class Comments {
 		}
 		
 		return \ColdTrick\AdvancedComments\DataService::instance()->getCommentsCount($entity);
-		
 	}
 }

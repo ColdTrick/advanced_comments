@@ -4,6 +4,9 @@ use ColdTrick\AdvancedComments\Bootstrap;
 use ColdTrick\AdvancedComments\Controllers\CommentRedirector;
 
 return [
+	'plugin' => [
+		'version' => '6.3.1',
+	],
 	'bootstrap' => Bootstrap::class,
 	'settings' => [
 		'default_limit' => 25,
@@ -42,7 +45,7 @@ return [
 		],
 		'register' => [
 			'menu:social' => [
-				'_elgg_comments_social_menu_setup' => [
+				'Elgg\Menus\Social::registerComments' => [
 					'unregister' => true,
 				],
 				'ColdTrick\AdvancedComments\Menus\Social::registerCommentItems' => [],

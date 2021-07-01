@@ -2,9 +2,8 @@
 
 namespace ColdTrick\AdvancedComments\DI;
 
-use Elgg\Di\ServiceFacade;
-use Elgg\Database\QueryBuilder;
 use Elgg\Database\Clauses\OrderByClause;
+use Elgg\Traits\Di\ServiceFacade;
 
 class ThreadPreloader {
 

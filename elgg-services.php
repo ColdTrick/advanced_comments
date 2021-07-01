@@ -3,5 +3,5 @@
 use ColdTrick\AdvancedComments\DI\ThreadPreloader;
 
 return [
-	ThreadPreloader::name() => Di\object(ThreadPreloader::class),
+	ThreadPreloader::name() => Di\get(ThreadPreloader::class),
 ];

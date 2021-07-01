@@ -14,7 +14,7 @@ class CommentRedirector {
 	/**
 	 * Redirect a comment to the correct entity
 	 *
-	 * @see _elgg_comment_redirect()
+	 * @see \Elgg\Controllers\CommentEntityRedirector
 	 *
 	 * @param \Elgg\Http\Request $request current HTTP request
 	 *
