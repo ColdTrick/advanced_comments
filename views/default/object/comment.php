@@ -53,13 +53,26 @@ if ($full_view) {
 		'title' => false,
 		'show_summary' => true,
 		'content' => $body,
+		'class' => elgg_extract_class($vars),
+		'imprint' => elgg_extract('imprint', $vars, []),
 	];
+	$params = $params + $vars;
 	
 	if (!empty(ThreadPreloader::instance()->getChildren($comment->guid))) {
-		$params['class'] = elgg_extract_class($vars, ['with-children']);
+		$params['class'][] = 'with-children';
 	}
 	
-	$params = $params + $vars;
+	if ($entity->owner_guid === $comment->owner_guid) {
+		$params['class'][] = 'comment-by-owner';
+		
+		if (!in_array('elgg-river-comments', elgg_extract_class($vars, [], 'list_class'))) {
+			$params['imprint'][] = [
+				'icon_name' => 'user-edit',
+				'content' => elgg_echo('advanced_comments:comment:response_by_author'),
+			];
+		}
+	}
+	
 	echo elgg_view('object/elements/full', $params);
 } else {
 	// brief view
