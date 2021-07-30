@@ -87,6 +87,6 @@ class CommentRedirector {
 		$parts['fragment'] = "elgg-object-{$comment->guid}";
 		$url = elgg_http_build_url($parts, false);
 		
-		forward($url);
+		return elgg_redirect_response($url);
 	}
 }
