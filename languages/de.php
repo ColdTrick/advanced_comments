@@ -6,7 +6,6 @@
 
 return array (
   'advanced_comments' => 'Erweiterte Kommentarfunktionen',
-  'advanced_comments:settings:limit' => 'Maximale Anzahl',
   'advanced_comments:comment:logged_out' => 'Das Kommentieren ist nur für angemeldete Nutzer erlaubt',
   'advanced_comments:settings:show_login_form' => 'Das Anmeldeformular für nicht angemeldete Benutzer unter den Kommentaren anzeigen',
   'advanced_comments:settings:allow_group_comments' => 'Nicht-Mitgliedern einer Gruppe erlauben, etwas in der Gruppe zu kommentieren',

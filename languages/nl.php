@@ -5,8 +5,6 @@
  */
 
 return array (
-  'advanced_comments:settings:limit' => 'Aantal reacties per pagina',
-  'advanced_comments:settings:limit:help' => 'Indien er meer reacties zijn, wordt paginering getoond.',
   'advanced_comments:settings:threaded_comments' => 'Sta geneste reacties toe tot een maximale diepte',
   'advanced_comments:settings:threaded_comments:none' => 'Geen geneste reacties toegestaan',
   'advanced_comments:settings:threaded_comments:help' => 'Indien toegestaan kunnen reacties op reacties geplaatst worden tot de maximale diepte.',
