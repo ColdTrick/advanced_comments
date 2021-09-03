@@ -64,8 +64,7 @@ if ($comment_guid) {
 	$comment->parent_guid = $parent_guid;
 	$comment->level = $level;
 	
-	$guid = $comment->save();
-	if (!$guid) {
+	if (!$comment->save()) {
 		return elgg_error_response(elgg_echo('generic_comment:failure'));
 	}
 
@@ -75,7 +74,7 @@ if ($comment_guid) {
 		elgg_create_river_item([
 			'view' => 'river/object/comment/create',
 			'action_type' => 'comment',
-			'object_guid' => $guid,
+			'object_guid' => $comment->guid,
 			'target_guid' => $entity->guid,
 		]);
 	}
