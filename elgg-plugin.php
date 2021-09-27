@@ -5,7 +5,7 @@ use ColdTrick\AdvancedComments\Controllers\CommentRedirector;
 
 return [
 	'plugin' => [
-		'version' => '6.3.1',
+		'version' => '7.0',
 	],
 	'bootstrap' => Bootstrap::class,
 	'settings' => [
