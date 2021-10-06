@@ -101,7 +101,10 @@ $comments_list = elgg_view_entity_list($comments, $options);
 
 $content = $comments_list;
 if ($show_add_form && $entity->canComment()) {
-	$form_vars = ['id' => "elgg-form-comment-save-{$entity->guid}"];
+	$form_vars = [
+		'id' => "elgg-form-comment-save-{$entity->guid}",
+		'prevent_double_submit' => false,
+	];
 	if ($entity instanceof ThreadedComment) {
 		$form_vars['class'] = 'hidden';
 	}
