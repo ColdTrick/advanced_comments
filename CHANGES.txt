@@ -1,6 +1,10 @@
 Version history
 ===============
 
+7.0.1 (2021-10-12):
+
+- fixed: no longer prevent double submit of comment form
+
 7.0 (2021-09-27):
 
 - added: French translation
